@@ -1,7 +1,10 @@
 from django.core import exceptions
+# from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from .models import Product 
 from category_app.models import Category
+from carts_app.views import _cart_id
+from carts_app.models import Cartitem
 
 # Create your views here.
 def store(request, category_slug=None):
@@ -25,10 +28,14 @@ def store(request, category_slug=None):
 def product_detail(request, category_slug, product_slug):
     try:
         single_product = Product.objects.get(category__slug=category_slug, slug=product_slug)
+        in_cart = Cartitem.objects.filter(cart__cart_id=_cart_id(request), product=single_product).exists()
+        # return HttpResponse(in_cart)
+        # exit()
     except Exception as e:
         raise e 
 
     context = {
         'single_product': single_product,
+        'in_cart': in_cart,
     }
     return render(request, 'store/product_detail.html', context)
