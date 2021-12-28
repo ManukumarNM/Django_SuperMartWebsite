@@ -137,6 +137,7 @@
       var csrftoken = getCookie('csrftoken');
       var orderID = "{{ order.order_number }}"
       var payment_method = 'PayPal'
+      var redirect_url = "{% url 'order_complete' %}"
 
       // Render the PayPal button into #paypal-button-container
       paypal.Buttons({
@@ -163,7 +164,7 @@
               return actions.order.capture().then(function(orderData) {
                   // Successful capture! For demo purposes:
                   // console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                  //console.log(orderData)
+                  console.log(orderData)
                   sendData();
                   // var transaction = orderData.purchase_units[0].payments.captures[0];
                   // alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
@@ -181,8 +182,10 @@
                         status: orderData.status,
                       }),
                     })
-                    // .then(response => response.json())
-                    // .then(data => console.log(data));
+                    .then((response) => response.json())
+                    .then((data) => {
+                      window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
+                    });
 
                   }
                   // Replace the above to show a success message within this page, e.g.
