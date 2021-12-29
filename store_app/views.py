@@ -11,6 +11,7 @@ from carts_app.models import Cartitem
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from .forms import ReviewForm
+from orders_app.models import OrderProduct
 
 # Create your views here.
 def store(request, category_slug=None):
@@ -46,9 +47,19 @@ def product_detail(request, category_slug, product_slug):
     except Exception as e:
         raise e 
 
+    try:
+        orderproduct = OrderProduct.objects.filter(user=request.user, product_id=single_product.id).exists()
+    except OrderProduct.DoesNotExist:
+        orderproduct = None
+
+    # Get the reviews
+    reviews = ReviewRating.objects.filter(product_id=single_product.id, status=True)
+
     context = {
         'single_product': single_product,
         'in_cart': in_cart,
+        'orderproduct': orderproduct,
+        'reviews': reviews,
     }
     return render(request, 'store/product_detail.html', context)
 
