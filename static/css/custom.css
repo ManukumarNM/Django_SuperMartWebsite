@@ -1,9 +1,0 @@
-/* hide radio button */
-.rate > input {
-    display: none;
-}
-
-.rate {
-    display: inline-block;
-    border: 0;
-}
