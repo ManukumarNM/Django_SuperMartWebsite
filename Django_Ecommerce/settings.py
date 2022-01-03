@@ -34,7 +34,11 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['*']
+=======
+ALLOWED_HOSTS = []
+>>>>>>> 0834f6a6d402b4cb0cfeffdc2dd948afaa82945d
 
 
 # Application definition
@@ -189,5 +193,8 @@ EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+<<<<<<< HEAD
 
 django_heroku.settings(locals())
+=======
+>>>>>>> 0834f6a6d402b4cb0cfeffdc2dd948afaa82945d
