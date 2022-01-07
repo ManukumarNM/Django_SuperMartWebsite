@@ -3,4 +3,4 @@
 *.python linguist-detectable=true
 *.Django linguist-detectable=true
 *.Bootstrap linguist-detectable=true
-*.javascript linguist-detectable=true
+*.javascript linguist-detectable=false
